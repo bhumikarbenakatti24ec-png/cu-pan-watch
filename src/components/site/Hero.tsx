@@ -67,22 +67,21 @@ export function Hero() {
             />
           </div>
 
-          <div className="glass absolute -left-3 top-8 hidden w-40 rounded-xl p-3 sm:block" style={{ animation: "baasc-float 7s ease-in-out infinite" }}>
-            <p className="font-mono text-[0.6rem] uppercase tracking-[0.18em] text-muted-foreground">
-              {readouts[0].label}
-            </p>
-            <p className={`mt-1 font-display text-sm font-semibold ${readouts[0].tone}`}>
-              {readouts[0].value}
-            </p>
-          </div>
-          <div className="glass absolute -right-3 top-1/3 hidden w-40 rounded-xl p-3 sm:block" style={{ animation: "baasc-float 9s ease-in-out infinite" }}>
-            <p className="font-mono text-[0.6rem] uppercase tracking-[0.18em] text-muted-foreground">
-              {readouts[1].label}
-            </p>
-            <p className={`mt-1 font-display text-sm font-semibold ${readouts[1].tone}`}>
-              {readouts[1].value}
-            </p>
-          </div>
+          {readouts.slice(0, 2).map((r, i) => (
+            <div
+              key={r.label}
+              className={`glass absolute hidden w-40 rounded-xl p-3 sm:block ${
+                i === 0 ? "-left-3 top-8" : "-right-3 top-1/3"
+              }`}
+              style={{ animation: `baasc-float ${7 + i * 2}s ease-in-out infinite` }}
+            >
+              <p className="font-mono text-[0.6rem] uppercase tracking-[0.18em] text-muted-foreground">
+                {r.label}
+              </p>
+              <p className={`mt-1 font-display text-sm font-semibold ${r.tone}`}>{r.value}</p>
+            </div>
+          ))}
+
 
           <div className="glass -mt-10 relative grid grid-cols-3 gap-3 rounded-2xl p-4">
             {readouts.slice(2).map((r) => (

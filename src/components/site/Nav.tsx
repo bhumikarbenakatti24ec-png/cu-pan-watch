@@ -2,101 +2,93 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 const links = [
+  { label: "Home", href: "#home" },
   { label: "Problem", href: "#problem" },
   { label: "Solution", href: "#solution" },
   { label: "Technology", href: "#technology" },
   { label: "Product", href: "#product" },
+  { label: "Application", href: "#application" },
   { label: "Research", href: "#research" },
   { label: "Team", href: "#team" },
+  { label: "Contact", href: "#contact" },
 ];
 
-export function Logo({ className }: { className?: string }) {
-  return (
-    <a href="#top" className={cn("group flex items-center gap-2.5", className)}>
-      <span className="relative flex h-9 w-9 items-center justify-center rounded-lg border border-primary/40 bg-primary/10">
-        <span
-          className="absolute inset-0 rounded-lg bg-primary/20 blur-md"
-          style={{ animation: "baasc-pulse 3.5s ease-in-out infinite" }}
-        />
-        <span className="relative font-display text-sm font-bold text-primary">B</span>
-      </span>
-      <span className="flex flex-col leading-none">
-        <span className="font-display text-base font-bold tracking-[0.18em]">BAASC</span>
-        <span className="mt-1 font-mono text-[0.55rem] uppercase tracking-[0.22em] text-muted-foreground">
-          Detect. Protect. Respond.
-        </span>
-      </span>
-    </a>
-  );
-}
-
 export function Nav() {
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("#home");
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const ids = links.map((l) => l.href.slice(1));
+    const onScroll = () => {
+      let current = ids[0]!;
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= 120) current = id;
+      }
+      setActive(`#${current}`);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-500",
-        scrolled ? "glass" : "border-b border-transparent",
-      )}
-    >
-      <nav className="mx-auto flex h-20 w-full max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
-        <Logo />
-        <div className="hidden items-center gap-7 lg:flex">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-border bg-steel text-steel-foreground">
+      <nav className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
+        <a href="#home" className="flex items-baseline gap-2">
+          <span className="font-display text-lg font-extrabold tracking-[0.14em]">BAASC</span>
+          <span className="hidden font-mono text-[0.6rem] uppercase tracking-[0.18em] text-steel-foreground/60 sm:inline">
+            Safety Tech
+          </span>
+        </a>
+
+        <ul className="hidden items-center gap-1 xl:flex">
           {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="text-sm text-muted-foreground transition-colors hover:text-primary"
-            >
-              {l.label}
-            </a>
+            <li key={l.href}>
+              <a
+                href={l.href}
+                className={cn(
+                  "border-b-2 px-3 py-2 text-[0.82rem] font-medium transition-colors",
+                  active === l.href
+                    ? "border-primary text-primary"
+                    : "border-transparent text-steel-foreground/75 hover:text-steel-foreground",
+                )}
+              >
+                {l.label}
+              </a>
+            </li>
           ))}
-          <a
-            href="#contact"
-            className="rounded-full border border-primary/40 bg-primary/10 px-5 py-2 text-sm font-medium text-primary transition-all hover:bg-primary/20"
-          >
-            Contact
-          </a>
-        </div>
+        </ul>
+
         <button
           type="button"
           aria-label="Toggle navigation"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="flex h-10 w-10 items-center justify-center rounded-lg border border-border lg:hidden"
+          className="flex h-9 w-9 items-center justify-center border border-steel-foreground/25 xl:hidden"
         >
-          <span className="flex flex-col gap-1.5">
-            <span className="block h-px w-5 bg-foreground" />
-            <span className="block h-px w-5 bg-foreground" />
-            <span className="block h-px w-5 bg-foreground" />
+          <span className="flex flex-col gap-[5px]">
+            <span className="block h-px w-5 bg-steel-foreground" />
+            <span className="block h-px w-5 bg-steel-foreground" />
+            <span className="block h-px w-5 bg-steel-foreground" />
           </span>
         </button>
       </nav>
+
       {open && (
-        <div className="glass border-t border-border px-5 pb-6 pt-2 lg:hidden">
-          <ul className="flex flex-col">
-            {[...links, { label: "Contact", href: "#contact" }].map((l) => (
-              <li key={l.href}>
-                <a
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                  className="block border-b border-border/60 py-3 text-sm text-muted-foreground"
-                >
-                  {l.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ul className="border-t border-steel-foreground/15 bg-steel px-5 pb-4 xl:hidden">
+          {links.map((l) => (
+            <li key={l.href}>
+              <a
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="block border-b border-steel-foreground/10 py-3 text-sm text-steel-foreground/80"
+              >
+                {l.label}
+              </a>
+            </li>
+          ))}
+        </ul>
       )}
     </header>
   );

@@ -26,42 +26,42 @@ const points = [
 
 const scale = [
   { range: "0.01–1.5 ppm", label: "Odour threshold", tone: "bg-safe" },
-  { range: "10 ppm", label: "Common occupational limit reference", tone: "bg-warn" },
+  { range: "10 ppm", label: "Common occupational limit reference", tone: "bg-brand-orange" },
   { range: "100 ppm +", label: "Loss of smell / immediately dangerous range", tone: "bg-danger" },
 ];
 
 export function Problem() {
   return (
-    <Section id="problem" className="border-b border-border">
+    <Section id="problem" className="border-b border-border bg-background">
       <SectionHeader
-        eyebrow="01 — The Problem"
+        num="01"
+        label="The Problem"
+        accent="blue"
         title="Personal H₂S exposure awareness remains a gap"
         intro="The objective of this project is not to replace certified detection equipment, but to provide an additional, low-cost personal exposure-awareness layer for industrial workers."
       />
 
-      <div className="mt-10 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+      <div className="mt-14 grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
         <div>
-          <figure className="border border-border bg-card">
+          <figure>
             <img
               src={problemScene}
               alt="Industrial plant area where hydrogen sulphide exposure can occur"
               loading="lazy"
-              className="aspect-[4/3] w-full object-cover"
+              className="aspect-[4/3] w-full border border-border object-cover shadow-[0_24px_50px_-34px_rgba(15,30,60,0.55)]"
             />
-            <figcaption className="border-t border-border px-4 py-3 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-muted-foreground">
+            <figcaption className="mt-3 border-l-2 border-brand-blue pl-3 font-mono text-[0.66rem] uppercase tracking-[0.16em] text-muted-foreground">
               Typical process area where H₂S may be released
             </figcaption>
           </figure>
 
-          <div className="mt-6 border border-border bg-surface">
-            <p className="border-b border-border px-4 py-3 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-muted-foreground">
-              Indicative exposure reference
-            </p>
-            <ul className="divide-y divide-border">
+          <div className="mt-10">
+            <p className="eyebrow">Indicative exposure reference</p>
+            <ul className="mt-4 divide-y divide-border border-t border-border">
               {scale.map((s) => (
-                <li key={s.range} className="flex items-center gap-3 px-4 py-3">
-                  <span className={`h-2.5 w-2.5 shrink-0 ${s.tone}`} />
-                  <span className="font-mono text-xs font-semibold">{s.range}</span>
+                <li key={s.range} className="flex items-center gap-4 py-4">
+                  <span className={`h-8 w-1.5 shrink-0 ${s.tone}`} />
+                  <span className="font-mono text-sm font-semibold text-brand-navy">{s.range}</span>
                   <span className="ml-auto text-right text-xs text-muted-foreground">{s.label}</span>
                 </li>
               ))}
@@ -69,12 +69,19 @@ export function Problem() {
           </div>
         </div>
 
-        <ol className="divide-y divide-border border border-border bg-card">
-          {points.map((p) => (
-            <li key={p.t} className="flex gap-5 px-6 py-6">
-              <span className="font-mono text-sm font-semibold text-primary">{p.n}</span>
-              <div>
-                <h3 className="text-base font-semibold leading-snug">{p.t}</h3>
+        <ol className="space-y-10">
+          {points.map((p, i) => (
+            <li key={p.t} className="grid grid-cols-[auto_1fr] gap-6">
+              <span
+                className={
+                  "font-mono text-lg font-bold leading-none " +
+                  (i % 2 === 0 ? "text-brand-blue" : "text-brand-orange")
+                }
+              >
+                {p.n}
+              </span>
+              <div className="border-t border-border pt-1">
+                <h3 className="text-lg font-semibold leading-snug text-brand-navy">{p.t}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.d}</p>
               </div>
             </li>

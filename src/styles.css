@@ -38,6 +38,15 @@
   --color-warn: var(--warn);
   --color-danger: var(--danger);
   --color-safe: var(--safe);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-cyan: var(--brand-cyan);
+  --color-brand-orange: var(--brand-orange);
+  --color-brand-teal: var(--brand-teal);
+  --color-brand-navy: var(--brand-navy);
+  --color-tint-blue: var(--tint-blue);
+  --color-tint-cyan: var(--tint-cyan);
+  --color-tint-grey: var(--tint-grey);
+  --color-tint-warm: var(--tint-warm);
 }
 
 :root {

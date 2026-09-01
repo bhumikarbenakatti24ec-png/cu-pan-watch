@@ -17,24 +17,63 @@ export function Section({
   );
 }
 
+export type Accent = "blue" | "cyan" | "orange" | "teal" | "navy";
+
+export const accentText: Record<Accent, string> = {
+  blue: "text-brand-blue",
+  cyan: "text-brand-cyan",
+  orange: "text-brand-orange",
+  teal: "text-brand-teal",
+  navy: "text-brand-navy",
+};
+
+export const accentBg: Record<Accent, string> = {
+  blue: "bg-brand-blue",
+  cyan: "bg-brand-cyan",
+  orange: "bg-brand-orange",
+  teal: "bg-brand-teal",
+  navy: "bg-brand-navy",
+};
+
+export const accentBorder: Record<Accent, string> = {
+  blue: "border-brand-blue",
+  cyan: "border-brand-cyan",
+  orange: "border-brand-orange",
+  teal: "border-brand-teal",
+  navy: "border-brand-navy",
+};
+
 export function SectionHeader({
-  eyebrow,
+  num,
+  label,
   title,
   intro,
+  accent = "blue",
   className,
 }: {
-  eyebrow: string;
+  num: string;
+  label: string;
   title: string;
   intro?: ReactNode;
+  accent?: Accent;
   className?: string;
 }) {
   return (
     <div className={cn("max-w-3xl", className)}>
-      <p className="eyebrow">{eyebrow}</p>
-      <h2 className="mt-3 text-2xl font-bold leading-tight sm:text-3xl md:text-[2.1rem]">{title}</h2>
-      <div className="mt-4 h-[3px] w-14 bg-primary" />
+      <p className="flex items-center gap-3">
+        <span className={cn("font-mono text-2xl font-bold leading-none", accentText[accent])}>
+          {num}
+        </span>
+        <span className="eyebrow">/ {label}</span>
+      </p>
+      <h2 className="mt-4 text-[1.75rem] font-bold leading-[1.1] tracking-tight sm:text-4xl md:text-[2.6rem]">
+        {title}
+      </h2>
+      <div className={cn("mt-5 h-[3px] w-16", accentBg[accent])} />
       {intro ? (
-        <p className="mt-5 text-base leading-relaxed text-muted-foreground">{intro}</p>
+        <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-[1.05rem]">
+          {intro}
+        </p>
       ) : null}
     </div>
   );

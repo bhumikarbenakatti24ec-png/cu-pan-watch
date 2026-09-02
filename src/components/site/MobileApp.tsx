@@ -67,7 +67,9 @@ export function MobileApp() {
   return (
     <Section id="mobile-app" className="border-b border-border bg-surface">
       <SectionHeader
-        eyebrow="06 — Mobile application"
+        num="06"
+        label="Mobile application"
+        accent="blue"
         title="Companion application interface"
         intro="The badge is read by a phone camera. The application converts the observed colour into an estimated exposure band and records it against the worker, area and shift."
       />

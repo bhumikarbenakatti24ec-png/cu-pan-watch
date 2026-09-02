@@ -7,7 +7,9 @@ export function Contact() {
   return (
     <Section id="contact" className="border-b border-border">
       <SectionHeader
-        eyebrow="09 — Contact"
+        num="09"
+        label="Contact"
+        accent="navy"
         title="Project enquiries"
         intro="For technical discussion, review of the prototype, or collaboration on field testing, please use the form below."
       />
